@@ -13,8 +13,7 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-[[functions]]
-  path = "/api/scrape-news"
+[functions."scrape-news"]
   schedule = "@daily"
 
 # Redirect /admin to /admin/ (trailing slash for Decap CMS)
