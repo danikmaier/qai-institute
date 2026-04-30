@@ -1,0 +1,16 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- QAI Institute geometric logo — interlocking diamond/cross Kazakh motif -->
+  <g fill="none" fill-rule="evenodd">
+    <!-- Outer diamond frame -->
+    <path d="M32 4L60 32L32 60L4 32Z" stroke="#1A1A1A" stroke-width="2" fill="none"/>
+    <!-- Inner diamond -->
+    <path d="M32 16L48 32L32 48L16 32Z" fill="#1A5C5A" opacity="0.9"/>
+    <!-- Center cross -->
+    <path d="M32 22L38 32L32 42L26 32Z" fill="white"/>
+    <!-- Corner fills -->
+    <path d="M32 4L38 10L32 16L26 10Z" fill="#1A1A1A" opacity="0.8"/>
+    <path d="M60 32L54 38L48 32L54 26Z" fill="#1A1A1A" opacity="0.8"/>
+    <path d="M32 60L26 54L32 48L38 54Z" fill="#1A1A1A" opacity="0.8"/>
+    <path d="M4 32L10 26L16 32L10 38Z" fill="#1A1A1A" opacity="0.8"/>
+  </g>
+</svg>

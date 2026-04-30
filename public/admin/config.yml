@@ -1,0 +1,274 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: "{{CLOUDINARY_CLOUD_NAME}}"
+    api_key: "{{CLOUDINARY_API_KEY}}"
+
+publish_mode: editorial_workflow
+
+locale: en
+
+collections:
+  # ──────────────────────────────────────────────────────────
+  # BUILDINGS
+  # ──────────────────────────────────────────────────────────
+  - name: buildings
+    label: Buildings
+    label_singular: Building
+    folder: content/buildings
+    create: true
+    slug: "{{fields.slug}}"
+    identifier_field: slug
+    fields:
+      - { label: "Slug", name: slug, widget: string, hint: "URL-safe identifier, e.g. central-state-museum" }
+
+      - { label: "Title (EN)", name: title_en, widget: string }
+      - { label: "Title (KZ)", name: title_kz, widget: string }
+      - { label: "Title (RU)", name: title_ru, widget: string }
+
+      - { label: "Latitude", name: latitude, widget: number, value_type: float, hint: "Decimal degrees, e.g. 43.2551" }
+      - { label: "Longitude", name: longitude, widget: number, value_type: float, hint: "Decimal degrees, e.g. 76.9126" }
+      - { label: "Year Built", name: year_built, widget: number, value_type: int }
+
+      - { label: "Architect (EN)", name: architect_en, widget: string }
+      - { label: "Architect (KZ)", name: architect_kz, widget: string }
+      - { label: "Architect (RU)", name: architect_ru, widget: string }
+
+      - { label: "Architectural Style (EN)", name: architectural_style_en, widget: string }
+      - { label: "Architectural Style (KZ)", name: architectural_style_kz, widget: string }
+      - { label: "Architectural Style (RU)", name: architectural_style_ru, widget: string }
+
+      - { label: "Description (EN)", name: description_en, widget: markdown }
+      - { label: "Description (KZ)", name: description_kz, widget: markdown }
+      - { label: "Description (RU)", name: description_ru, widget: markdown }
+
+      - label: Photos
+        name: photos
+        widget: list
+        field:
+          label: "Cloudinary Image ID"
+          name: photo
+          widget: string
+          hint: "Cloudinary public ID, e.g. qai/buildings/my-building-01"
+
+      - { label: "Current Owner (EN)", name: current_owner_en, widget: string, required: false }
+      - { label: "Current Owner (KZ)", name: current_owner_kz, widget: string, required: false }
+      - { label: "Current Owner (RU)", name: current_owner_ru, widget: string, required: false }
+
+      - label: Notes for Future Development
+        name: notes_future_development
+        widget: object
+        required: false
+        fields:
+          - { label: "Aesthetic Notes (EN)", name: aesthetic_notes_en, widget: markdown, required: false }
+          - { label: "Aesthetic Notes (KZ)", name: aesthetic_notes_kz, widget: markdown, required: false }
+          - { label: "Aesthetic Notes (RU)", name: aesthetic_notes_ru, widget: markdown, required: false }
+
+          - { label: "Material Information (EN)", name: material_information_en, widget: markdown, required: false }
+          - { label: "Material Information (KZ)", name: material_information_kz, widget: markdown, required: false }
+          - { label: "Material Information (RU)", name: material_information_ru, widget: markdown, required: false }
+
+          - { label: "Details to Preserve (EN)", name: details_to_preserve_en, widget: markdown, required: false }
+          - { label: "Details to Preserve (KZ)", name: details_to_preserve_kz, widget: markdown, required: false }
+          - { label: "Details to Preserve (RU)", name: details_to_preserve_ru, widget: markdown, required: false }
+
+          - { label: "Elements to Restore (EN)", name: elements_to_restore_en, widget: markdown, required: false }
+          - { label: "Elements to Restore (KZ)", name: elements_to_restore_kz, widget: markdown, required: false }
+          - { label: "Elements to Restore (RU)", name: elements_to_restore_ru, widget: markdown, required: false }
+
+          - { label: "Local Community Importance (EN)", name: local_community_importance_en, widget: markdown, required: false }
+          - { label: "Local Community Importance (KZ)", name: local_community_importance_kz, widget: markdown, required: false }
+          - { label: "Local Community Importance (RU)", name: local_community_importance_ru, widget: markdown, required: false }
+
+      - { label: "Date Added", name: date_added, widget: datetime }
+
+  # ──────────────────────────────────────────────────────────
+  # RESEARCH
+  # ──────────────────────────────────────────────────────────
+  - name: research
+    label: Research
+    label_singular: Research Entry
+    folder: content/research
+    create: true
+    slug: "{{fields.slug}}"
+    identifier_field: slug
+    fields:
+      - { label: "Slug", name: slug, widget: string }
+
+      - { label: "Title (EN)", name: title_en, widget: string }
+      - { label: "Title (KZ)", name: title_kz, widget: string }
+      - { label: "Title (RU)", name: title_ru, widget: string }
+
+      - { label: "Authors", name: authors, widget: string, hint: "Comma-separated, e.g. Smith, J. & Jones, K." }
+      - { label: "Year", name: year, widget: number, value_type: int }
+
+      - { label: "Abstract (EN)", name: abstract_en, widget: markdown }
+      - { label: "Abstract (KZ)", name: abstract_kz, widget: markdown }
+      - { label: "Abstract (RU)", name: abstract_ru, widget: markdown }
+
+      - label: Keywords
+        name: keywords
+        widget: list
+        field: { label: Keyword, name: keyword, widget: string }
+
+      - { label: "Citation", name: citation, widget: text, hint: "Full formatted academic citation" }
+      - { label: "URL", name: url, widget: string, required: false, hint: "Link to full paper if available" }
+      - { label: "Date Added", name: date_added, widget: datetime }
+
+  # ──────────────────────────────────────────────────────────
+  # GALLERY
+  # ──────────────────────────────────────────────────────────
+  - name: gallery
+    label: Gallery
+    label_singular: Gallery Entry
+    folder: content/gallery
+    create: true
+    slug: "{{fields.slug}}"
+    identifier_field: slug
+    fields:
+      - { label: "Slug", name: slug, widget: string }
+
+      - { label: "Title (EN)", name: title_en, widget: string }
+      - { label: "Title (KZ)", name: title_kz, widget: string }
+      - { label: "Title (RU)", name: title_ru, widget: string }
+
+      - { label: "Image (Cloudinary ID)", name: image, widget: string, hint: "Cloudinary public ID, e.g. qai/gallery/photo-01" }
+
+      - { label: "Caption (EN)", name: caption_en, widget: text, required: false }
+      - { label: "Caption (KZ)", name: caption_kz, widget: text, required: false }
+      - { label: "Caption (RU)", name: caption_ru, widget: text, required: false }
+
+      - { label: "Building Reference", name: building_ref, widget: relation, collection: buildings, search_fields: [title_en], value_field: slug, display_fields: [title_en], required: false }
+      - { label: "Photographer", name: photographer, widget: string, required: false }
+      - { label: "Year Taken", name: year_taken, widget: number, value_type: int, required: false }
+      - { label: "Date Added", name: date_added, widget: datetime }
+
+  # ──────────────────────────────────────────────────────────
+  # HISTORY
+  # ──────────────────────────────────────────────────────────
+  - name: history
+    label: History Timeline
+    label_singular: History Period
+    folder: content/history
+    create: true
+    slug: "{{fields.slug}}"
+    identifier_field: slug
+    fields:
+      - { label: "Slug", name: slug, widget: string }
+
+      - { label: "Title (EN)", name: title_en, widget: string }
+      - { label: "Title (KZ)", name: title_kz, widget: string }
+      - { label: "Title (RU)", name: title_ru, widget: string }
+
+      - { label: "Period Start (Year)", name: period_start, widget: number, value_type: int }
+      - { label: "Period End (Year)", name: period_end, widget: number, value_type: int, required: false, hint: "Leave blank for ongoing/present" }
+
+      - { label: "Description (EN)", name: description_en, widget: markdown }
+      - { label: "Description (KZ)", name: description_kz, widget: markdown }
+      - { label: "Description (RU)", name: description_ru, widget: markdown }
+
+      - label: Key Buildings
+        name: key_buildings
+        widget: list
+        required: false
+        field: { label: "Building Name", name: building, widget: string }
+
+      - label: Images
+        name: images
+        widget: list
+        required: false
+        field:
+          label: "Cloudinary Image ID"
+          name: image
+          widget: string
+
+      - { label: "Order", name: order, widget: number, value_type: int, hint: "Manual sort order — lower numbers appear first" }
+
+  # ──────────────────────────────────────────────────────────
+  # FUTURE / IDEAS
+  # ──────────────────────────────────────────────────────────
+  - name: future
+    label: Future / Ideas
+    label_singular: Entry
+    folder: content/future
+    create: true
+    slug: "{{fields.slug}}"
+    identifier_field: slug
+    fields:
+      - { label: "Slug", name: slug, widget: string }
+
+      - { label: "Title (EN)", name: title_en, widget: string }
+      - { label: "Title (KZ)", name: title_kz, widget: string }
+      - { label: "Title (RU)", name: title_ru, widget: string }
+
+      - { label: "Author (EN)", name: author_en, widget: string }
+      - { label: "Author (KZ)", name: author_kz, widget: string }
+      - { label: "Author (RU)", name: author_ru, widget: string }
+
+      - { label: "Body (EN)", name: body_en, widget: markdown }
+      - { label: "Body (KZ)", name: body_kz, widget: markdown }
+      - { label: "Body (RU)", name: body_ru, widget: markdown }
+
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - { label: Article, value: article }
+          - { label: Project, value: project }
+          - { label: Proposal, value: proposal }
+          - { label: Manifesto, value: manifesto }
+
+      - { label: "Featured Image (Cloudinary ID)", name: featured_image, widget: string, required: false }
+      - { label: "Date Published", name: date_published, widget: datetime }
+
+  # ──────────────────────────────────────────────────────────
+  # NEWS (read-only in CMS — auto-generated by scraper)
+  # ──────────────────────────────────────────────────────────
+  - name: news
+    label: News
+    label_singular: News Article
+    folder: content/news
+    create: false
+    identifier_field: slug
+    fields:
+      - { label: "Slug", name: slug, widget: string }
+      - { label: "Title", name: title, widget: string }
+      - { label: "Summary", name: summary, widget: text }
+      - { label: "Source Name", name: source_name, widget: string }
+      - { label: "Source URL", name: source_url, widget: string }
+      - { label: "Date Scraped", name: date_scraped, widget: datetime }
+      - label: Region Tags
+        name: region_tags
+        widget: list
+        field: { label: Tag, name: tag, widget: string }
+
+  # ──────────────────────────────────────────────────────────
+  # ABOUT (single file)
+  # ──────────────────────────────────────────────────────────
+  - name: about
+    label: About
+    files:
+      - label: About Page
+        name: about
+        file: content/about.md
+        fields:
+          - { label: "Mission (EN)", name: mission_en, widget: markdown }
+          - { label: "Mission (KZ)", name: mission_kz, widget: markdown }
+          - { label: "Mission (RU)", name: mission_ru, widget: markdown }
+
+          - { label: "Bio / About Us (EN)", name: bio_en, widget: markdown }
+          - { label: "Bio / About Us (KZ)", name: bio_kz, widget: markdown }
+          - { label: "Bio / About Us (RU)", name: bio_ru, widget: markdown }
+
+          - { label: "Contact Email", name: contact_email, widget: string }
+
+          - label: Social Links
+            name: social_links
+            widget: list
+            fields:
+              - { label: Platform, name: platform, widget: string }
+              - { label: URL, name: url, widget: string }

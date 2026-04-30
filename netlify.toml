@@ -1,0 +1,44 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Scheduled function — daily news scraper at 06:00 UTC
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[functions]]
+  path = "/api/scrape-news"
+  schedule = "@daily"
+
+# Redirect /admin to /admin/ (trailing slash for Decap CMS)
+[[redirects]]
+  from = "/admin"
+  to = "/admin/"
+  status = 301
+
+# Locale redirect — root to /en/
+[[redirects]]
+  from = "/"
+  to = "/en/"
+  status = 302
+
+# Netlify Identity widget
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
