@@ -60,7 +60,7 @@ export default function ResearchClient({
             </p>
 
             {entry.abstract && (
-              <p className="mt-3 ml-0 text-sm text-grey-500 leading-[1.8] max-w-prose">
+              <p className="mt-3 ml-0 text-sm text-grey-500 leading-[1.8]">
                 {entry.abstract}
               </p>
             )}
