@@ -35,7 +35,7 @@ export default function BuildingsMap({
   }, []);
 
   return (
-    <div className="w-full h-[600px] border border-grey-300">
+    <div className="w-full h-[420px] sm:h-[600px] border border-grey-300">
       <Map
         {...viewport}
         onMove={(e) => setViewport(e.viewState)}

@@ -55,7 +55,7 @@ export default function FutureClient({
 
       <ul className="bullet-list space-y-5 text-base">
         {filtered.map((entry) => (
-          <li key={entry.slug}>
+          <li key={entry.slug} className="break-words">
             <Link
               href={`/future/${entry.slug}`}
               className="text-black hover:text-teal transition-colors duration-150"

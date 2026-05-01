@@ -12,7 +12,7 @@ export default function NewsGrid({ news }: { news: NewsEntry[] }) {
     <ul className="bullet-list space-y-8">
       {news.map((item) => (
         <li key={item.slug} className="text-base">
-          <p className="text-black leading-snug">
+          <p className="text-black leading-snug break-words">
             {item.title}
             <span className="text-grey-600">
               {" — "}

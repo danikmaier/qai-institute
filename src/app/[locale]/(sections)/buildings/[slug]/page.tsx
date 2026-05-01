@@ -84,13 +84,13 @@ function BuildingDetail({
         {building.title.toLowerCase()}
       </h1>
 
-      <div className="mt-10 pl-7 max-w-2xl">
+      <div className="mt-10 pl-6 sm:pl-7 max-w-2xl">
         {meta.map((m) => (
-          <p key={m.label} className="text-base text-black leading-[1.9]">
+          <p key={m.label} className="text-sm sm:text-base text-black leading-[1.9] break-words">
             <span className="text-grey-500">{m.label}:</span> {m.value}
           </p>
         ))}
-        <p className="text-base text-black leading-[1.9]">
+        <p className="text-sm sm:text-base text-black leading-[1.9] break-words">
           <span className="text-grey-500">coordinates:</span>{" "}
           <span className="tabular-nums">
             {building.latitude.toFixed(4)}°N, {building.longitude.toFixed(4)}°E

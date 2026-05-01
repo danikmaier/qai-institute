@@ -25,9 +25,39 @@ export default function Navigation({ locale }: { locale: string }) {
 
   return (
     <header className="border-b border-grey-200 bg-white">
-      <div className="px-10 md:px-16 py-6 md:py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-        {/* Left: nav links */}
-        <nav className="flex flex-wrap items-center gap-x-7 gap-y-2">
+      <div className="px-6 sm:px-10 md:px-16 py-6 md:py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        {/* Top row on mobile: logo + lang. md+: nav on left */}
+        <div className="flex items-center justify-between gap-4 md:hidden">
+          <Link href="/" aria-label="QAI INSTITUTE" className="block">
+            <span className="relative block w-[110px] h-[28px]">
+              <Image
+                src={LOGO_PATH}
+                alt="QAI INSTITUTE"
+                fill
+                sizes="110px"
+                className="object-contain object-left"
+                priority
+              />
+            </span>
+          </Link>
+          <div className="flex items-center gap-3">
+            {(["en", "kz", "ru"] as Locale[]).map((l) => (
+              <Link
+                key={l}
+                href={pathname}
+                locale={l}
+                className={`text-xs uppercase tracking-[0.2em] transition-colors duration-150 ${
+                  locale === l ? "text-teal" : "text-grey-500 hover:text-teal"
+                }`}
+              >
+                {LOCALE_LABELS[l]}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Nav: vertical stack on mobile, horizontal on md+ */}
+        <nav className="flex flex-col gap-2 md:flex-row md:flex-wrap md:items-center md:gap-x-7 md:gap-y-2">
           {NAV_LINKS.map(({ href, label }) => (
             <Link
               key={href}
@@ -41,8 +71,8 @@ export default function Navigation({ locale }: { locale: string }) {
           ))}
         </nav>
 
-        {/* Right: logo + lang */}
-        <div className="flex items-center gap-6 md:gap-8 shrink-0">
+        {/* md+: logo + lang on right */}
+        <div className="hidden md:flex items-center gap-6 md:gap-8 shrink-0">
           <div className="flex items-center gap-3">
             {(["en", "kz", "ru"] as Locale[]).map((l) => (
               <Link
@@ -58,7 +88,7 @@ export default function Navigation({ locale }: { locale: string }) {
             ))}
           </div>
           <Link href="/" aria-label="QAI INSTITUTE" className="block">
-            <span className="relative block w-[110px] h-[28px] md:w-[140px] md:h-[36px]">
+            <span className="relative block w-[140px] h-[36px]">
               <Image
                 src={LOGO_PATH}
                 alt="QAI INSTITUTE"

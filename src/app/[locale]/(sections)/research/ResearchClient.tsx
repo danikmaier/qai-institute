@@ -41,7 +41,7 @@ export default function ResearchClient({
       <ul className="bullet-list space-y-8">
         {filtered.map((entry, idx) => (
           <li key={entry.slug} className="text-base">
-            <p className="text-black leading-snug">
+            <p className="text-black leading-snug break-words">
               {entry.authors}. &ldquo;{entry.title}.&rdquo;{" "}
               <span className="text-grey-600 tabular-nums">{entry.year}</span>
               {entry.url && (
@@ -66,13 +66,13 @@ export default function ResearchClient({
             )}
 
             {entry.keywords.length > 0 && (
-              <p className="mt-3 text-xs text-grey-500 lowercase">
+              <p className="mt-3 text-xs text-grey-500 lowercase break-words">
                 keywords: {entry.keywords.join(", ")}
               </p>
             )}
 
             {idx < filtered.length - 1 && (
-              <span className="block w-full h-px bg-grey-200 mt-8 -ml-7" style={{ width: "calc(100% + 1.75rem)" }} />
+              <span className="block h-px bg-grey-200 mt-8 -ml-6 sm:-ml-7" style={{ width: "calc(100% + 1.5rem)" }} />
             )}
           </li>
         ))}

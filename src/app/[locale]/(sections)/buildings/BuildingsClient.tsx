@@ -9,7 +9,7 @@ import type { Building } from "@/lib/content";
 const BuildingsMap = dynamic(() => import("./BuildingsMap"), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-[640px] border border-grey-200 flex items-center justify-center">
+    <div className="w-full h-[420px] sm:h-[600px] border border-grey-200 flex items-center justify-center">
       <span className="text-grey-500 text-sm">loading map…</span>
     </div>
   ),
@@ -66,7 +66,7 @@ function BuildingsList({ buildings }: { buildings: Building[] }) {
   return (
     <ul className="bullet-list space-y-3 text-base">
       {buildings.map((b) => (
-        <li key={b.slug}>
+        <li key={b.slug} className="break-words">
           <Link
             href={`/buildings/${b.slug}`}
             className="text-black hover:text-teal transition-colors duration-150"

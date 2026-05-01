@@ -26,10 +26,13 @@ export default async function HomePage({
   return (
     <section className="relative h-screen w-screen overflow-hidden bg-white">
       {/* Top-left: navigation list with bullets */}
-      <nav className="absolute top-10 left-10 md:top-16 md:left-16">
-        <ul className="list-disc list-outside pl-7 space-y-2 marker:text-black">
+      <nav className="absolute top-6 left-6 sm:top-10 sm:left-10 md:top-16 md:left-16">
+        <ul className="list-disc list-outside pl-6 sm:pl-7 space-y-1.5 sm:space-y-2 marker:text-black">
           {NAV_LINKS.map(({ href, label }) => (
-            <li key={href} className="text-[28px] md:text-[32px] leading-[1.35]">
+            <li
+              key={href}
+              className="text-[22px] sm:text-[28px] md:text-[32px] leading-[1.35]"
+            >
               <Link
                 href={href}
                 className="lowercase text-black hover:text-teal transition-colors duration-150"
@@ -42,7 +45,7 @@ export default async function HomePage({
       </nav>
 
       {/* Top-right: language switcher */}
-      <div className="absolute top-10 right-10 md:top-16 md:right-16 flex items-center gap-3">
+      <div className="absolute top-6 right-6 sm:top-10 sm:right-10 md:top-16 md:right-16 flex items-center gap-3">
         {(["en", "kz", "ru"] as Locale[]).map((l) => (
           <Link
             key={l}
@@ -58,14 +61,15 @@ export default async function HomePage({
       </div>
 
       {/* Bottom-right: logo */}
-      <div className="absolute bottom-10 right-10 md:bottom-16 md:right-16 w-[260px] h-[160px] md:w-[320px] md:h-[200px]">
+      <div className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 md:bottom-16 md:right-16 w-[170px] h-[105px] sm:w-[260px] sm:h-[160px] md:w-[320px] md:h-[200px]">
         <Image
           src={LOGO_PATH}
           alt="QAI INSTITUTE"
           fill
-          sizes="(max-width: 768px) 260px, 320px"
+          sizes="(max-width: 640px) 170px, (max-width: 768px) 260px, 320px"
           priority
-          className="object-contain object-bottom-right"
+          className="object-contain"
+          style={{ objectPosition: "right bottom" }}
         />
       </div>
     </section>

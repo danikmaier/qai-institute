@@ -9,8 +9,8 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-grey-200 mt-32">
-      <div className="px-10 md:px-16 py-6 flex items-center justify-between">
+    <footer className="border-t border-grey-200 mt-20 sm:mt-32">
+      <div className="px-6 sm:px-10 md:px-16 py-6 flex items-center justify-between gap-4">
         <span className="text-xs tracking-[0.25em] uppercase">{BRAND}</span>
         <span className="text-xs text-grey-500 tabular-nums">© {year}</span>
       </div>

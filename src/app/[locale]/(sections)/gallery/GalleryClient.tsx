@@ -24,7 +24,7 @@ export default function GalleryClient({ gallery }: { gallery: GalleryEntry[] }) 
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10 sm:gap-y-14">
         {gallery.map((item, idx) => (
           <figure key={item.slug} className="text-left">
             <button
@@ -57,13 +57,13 @@ export default function GalleryClient({ gallery }: { gallery: GalleryEntry[] }) 
 
       {open !== null && (
         <div
-          className="fixed inset-0 z-50 bg-white flex items-center justify-center p-6 md:p-12"
+          className="fixed inset-0 z-50 bg-white flex items-center justify-center p-4 sm:p-6 md:p-12 overflow-auto"
           onClick={() => setOpen(null)}
         >
           <button
             onClick={() => setOpen(null)}
             aria-label="close"
-            className="absolute top-6 right-6 text-sm text-grey-500 hover:text-teal lowercase tracking-[0.2em]"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 text-sm text-grey-500 hover:text-teal lowercase tracking-[0.2em] z-10"
           >
             close ×
           </button>

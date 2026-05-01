@@ -97,7 +97,7 @@ function AboutContent({
 
       <div className="mt-16 max-w-prose">
         {about.contact_email && (
-          <p className="text-base text-black">
+          <p className="text-base text-black break-all">
             <a
               href={`mailto:${about.contact_email}`}
               className="link-underline"
