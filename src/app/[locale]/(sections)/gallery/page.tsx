@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { getAllGallery } from "@/lib/content";
@@ -25,27 +24,10 @@ export default async function GalleryPage({
   setRequestLocale(locale);
   const gallery = getAllGallery(locale as Locale);
 
-  return <GalleryPageContent gallery={gallery} locale={locale as Locale} />;
-}
-
-function GalleryPageContent({
-  gallery,
-}: {
-  gallery: ReturnType<typeof getAllGallery>;
-  locale: Locale;
-}) {
-  const t = useTranslations("gallery");
-
   return (
-    <div className="pt-20">
-      <div className="bg-off-white border-b border-grey-200">
-        <div className="container-editorial py-16">
-          <span className="text-label text-teal mb-4 block">Archive</span>
-          <h1 className="font-serif text-5xl md:text-6xl mb-4">{t("title")}</h1>
-          <p className="text-grey-500 text-lg">{t("subtitle")}</p>
-        </div>
-      </div>
-      <div className="container-editorial py-16">
+    <div className="container-archival py-16 md:py-20">
+      <h1 className="page-title">gallery</h1>
+      <div className="mt-12">
         <GalleryClient gallery={gallery} />
       </div>
     </div>

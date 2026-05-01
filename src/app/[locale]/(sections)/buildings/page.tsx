@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { getAllBuildings } from "@/lib/content";
@@ -35,20 +34,13 @@ function BuildingsPageContent({
   buildings: ReturnType<typeof getAllBuildings>;
   locale: Locale;
 }) {
-  const t = useTranslations("buildings");
-
   return (
-    <div className="pt-20">
-      {/* Page header */}
-      <div className="bg-off-white border-b border-grey-200">
-        <div className="container-editorial py-16">
-          <span className="text-label text-teal mb-4 block">Archive</span>
-          <h1 className="font-serif text-5xl md:text-6xl mb-4">{t("title")}</h1>
-          <p className="text-grey-500 text-lg">{t("subtitle")}</p>
-        </div>
-      </div>
+    <div className="container-archival py-16 md:py-20">
+      <h1 className="page-title">buildings</h1>
 
-      <BuildingsClient buildings={buildings} locale={locale} />
+      <div className="mt-12">
+        <BuildingsClient buildings={buildings} locale={locale} />
+      </div>
     </div>
   );
 }

@@ -1,122 +1,101 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
 import type { GalleryEntry } from "@/lib/content";
 
 const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "placeholder";
 
 export default function GalleryClient({ gallery }: { gallery: GalleryEntry[] }) {
-  const t = useTranslations("gallery");
-  const [lightbox, setLightbox] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (open === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   if (!gallery.length) {
-    return <p className="text-grey-400">{t("no_gallery")}</p>;
+    return <p className="text-grey-500 text-sm">no images yet.</p>;
   }
-
-  const closeLightbox = () => setLightbox(null);
-  const prevImage = () =>
-    setLightbox((i) => (i !== null ? (i - 1 + gallery.length) % gallery.length : null));
-  const nextImage = () =>
-    setLightbox((i) => (i !== null ? (i + 1) % gallery.length : null));
 
   return (
     <>
-      {/* Masonry-style editorial grid */}
-      <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
         {gallery.map((item, idx) => (
-          <div
-            key={item.slug}
-            className="break-inside-avoid cursor-pointer group"
-            onClick={() => setLightbox(idx)}
-          >
-            <div className="relative overflow-hidden bg-grey-100">
-              {item.image ? (
-                <Image
-                  src={`https://res.cloudinary.com/${CLOUD}/image/upload/w_800,q_auto,f_auto/${item.image}`}
-                  alt={item.title}
-                  width={800}
-                  height={600}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              ) : (
-                <div className="aspect-[4/3] bg-grey-200 kazakh-motif flex items-center justify-center">
-                  <span className="text-grey-400 text-xs">No image</span>
-                </div>
-              )}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/70 to-transparent">
-                <p className="text-white text-sm font-serif">{item.title}</p>
-                {item.photographer && (
-                  <p className="text-white/70 text-xs mt-0.5">{item.photographer}</p>
-                )}
+          <figure key={item.slug} className="text-left">
+            <button
+              onClick={() => setOpen(idx)}
+              className="block w-full text-left group"
+            >
+              <div className="relative aspect-[4/3] bg-off-white overflow-hidden">
+                {item.image ? (
+                  <Image
+                    src={`https://res.cloudinary.com/${CLOUD}/image/upload/w_900,q_auto,f_auto/${item.image}`}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                ) : null}
               </div>
-            </div>
-          </div>
+              <figcaption className="mt-3 text-sm text-black group-hover:text-teal transition-colors">
+                {item.title}
+              </figcaption>
+            </button>
+            {(item.photographer || item.year_taken) && (
+              <p className="mt-1 text-xs text-grey-500">
+                {[item.photographer, item.year_taken].filter(Boolean).join(" · ")}
+              </p>
+            )}
+          </figure>
         ))}
       </div>
 
-      {/* Lightbox */}
-      {lightbox !== null && (
+      {open !== null && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
-          onClick={closeLightbox}
+          className="fixed inset-0 z-50 bg-white flex items-center justify-center p-6 md:p-12"
+          onClick={() => setOpen(null)}
         >
+          <button
+            onClick={() => setOpen(null)}
+            aria-label="close"
+            className="absolute top-6 right-6 text-sm text-grey-500 hover:text-teal lowercase tracking-[0.2em]"
+          >
+            close ×
+          </button>
           <div
-            className="relative max-w-5xl w-full mx-4"
+            className="max-w-5xl w-full"
             onClick={(e) => e.stopPropagation()}
           >
-            {gallery[lightbox].image && (
-              <div className="relative">
+            {gallery[open].image && (
+              <div className="relative w-full" style={{ aspectRatio: "4/3" }}>
                 <Image
-                  src={`https://res.cloudinary.com/${CLOUD}/image/upload/w_1600,q_auto,f_auto/${gallery[lightbox].image}`}
-                  alt={gallery[lightbox].title}
-                  width={1600}
-                  height={1200}
+                  src={`https://res.cloudinary.com/${CLOUD}/image/upload/w_1800,q_auto,f_auto/${gallery[open].image}`}
+                  alt={gallery[open].title}
+                  fill
                   sizes="100vw"
-                  className="w-full h-auto max-h-[80vh] object-contain"
+                  className="object-contain"
                 />
               </div>
             )}
-            <div className="mt-4 text-center">
-              <p className="text-white font-serif text-lg">{gallery[lightbox].title}</p>
-              {gallery[lightbox].caption && (
-                <p className="text-grey-400 text-sm mt-1">{gallery[lightbox].caption}</p>
-              )}
-              {gallery[lightbox].photographer && (
-                <p className="text-grey-500 text-xs mt-1">
-                  {t("photographer")}: {gallery[lightbox].photographer}
+            <div className="mt-4 text-left">
+              <p className="text-base text-black">{gallery[open].title}</p>
+              {(gallery[open].photographer || gallery[open].year_taken) && (
+                <p className="mt-1 text-xs text-grey-500">
+                  {[gallery[open].photographer, gallery[open].year_taken]
+                    .filter(Boolean)
+                    .join(" · ")}
                 </p>
               )}
-            </div>
-
-            {/* Navigation */}
-            <button
-              onClick={prevImage}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 text-white/60 hover:text-white text-3xl p-2"
-            >
-              ←
-            </button>
-            <button
-              onClick={nextImage}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 text-white/60 hover:text-white text-3xl p-2"
-            >
-              →
-            </button>
-
-            {/* Close */}
-            <button
-              onClick={closeLightbox}
-              className="absolute -top-10 right-0 text-white/60 hover:text-white text-sm tracking-wider"
-            >
-              {t("close")} ×
-            </button>
-
-            {/* Counter */}
-            <div className="absolute -top-10 left-0 text-white/40 text-xs">
-              {lightbox + 1} / {gallery.length}
+              {gallery[open].caption && (
+                <p className="mt-2 text-sm text-grey-600 max-w-prose">
+                  {gallery[open].caption}
+                </p>
+              )}
             </div>
           </div>
         </div>

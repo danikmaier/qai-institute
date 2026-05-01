@@ -4,7 +4,7 @@
     <!-- Outer diamond frame -->
     <path d="M32 4L60 32L32 60L4 32Z" stroke="#1A1A1A" stroke-width="2" fill="none"/>
     <!-- Inner diamond -->
-    <path d="M32 16L48 32L32 48L16 32Z" fill="#1A5C5A" opacity="0.9"/>
+    <path d="M32 16L48 32L32 48L16 32Z" fill="#7C7C7C" opacity="0.9"/>
     <!-- Center cross -->
     <path d="M32 22L38 32L32 42L26 32Z" fill="white"/>
     <!-- Corner fills -->

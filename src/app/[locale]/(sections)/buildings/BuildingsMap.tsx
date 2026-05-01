@@ -35,7 +35,7 @@ export default function BuildingsMap({
   }, []);
 
   return (
-    <div className="w-full h-[600px] border border-grey-200">
+    <div className="w-full h-[600px] border border-grey-300">
       <Map
         {...viewport}
         onMove={(e) => setViewport(e.viewState)}
@@ -53,8 +53,8 @@ export default function BuildingsMap({
             anchor="bottom"
             onClick={() => handleMarkerClick(building)}
           >
-            <div className="group cursor-pointer">
-              <div className="w-3 h-3 bg-teal rounded-full border-2 border-white shadow-md group-hover:scale-150 transition-transform duration-200" />
+            <div className="cursor-pointer">
+              <div className="w-2.5 h-2.5 bg-teal border border-white" />
             </div>
           </Marker>
         ))}
@@ -64,15 +64,15 @@ export default function BuildingsMap({
             latitude={selected.latitude}
             longitude={selected.longitude}
             anchor="bottom"
-            offset={20}
+            offset={16}
             onClose={() => setSelected(null)}
             closeButton
           >
-            <div className="w-56">
+            <div className="w-56 bg-white">
               {selected.photos?.[0] && (
-                <div className="relative w-full h-32">
+                <div className="relative w-full h-28">
                   <Image
-                    src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "placeholder"}/image/upload/w_224,h_128,c_fill/${selected.photos[0]}`}
+                    src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "placeholder"}/image/upload/w_224,h_112,c_fill/${selected.photos[0]}`}
                     alt={selected.title}
                     fill
                     sizes="224px"
@@ -81,15 +81,13 @@ export default function BuildingsMap({
                 </div>
               )}
               <div className="p-3">
-                <h3 className="font-serif text-sm leading-tight mb-1">
-                  {selected.title}
-                </h3>
-                <p className="text-xs text-grey-500 mb-3">
+                <h3 className="text-sm leading-tight">{selected.title}</h3>
+                <p className="mt-1 text-xs text-grey-500">
                   {selected.year_built} · {selected.architect}
                 </p>
                 <button
                   onClick={() => router.push(`/buildings/${selected.slug}`)}
-                  className="text-xs font-medium text-teal hover:underline"
+                  className="mt-3 text-xs text-teal hover:underline underline-offset-4"
                 >
                   {t("view_on_map")} →
                 </button>

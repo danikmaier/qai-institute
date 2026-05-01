@@ -1,18 +1,18 @@
 <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
   <g fill="none" fill-rule="evenodd">
     <!-- Outer diamond -->
-    <path d="M40 2L78 40L40 78L2 40Z" stroke="#1A5C5A" stroke-width="1" fill="none" opacity="0.3"/>
+    <path d="M40 2L78 40L40 78L2 40Z" stroke="#7C7C7C" stroke-width="1" fill="none" opacity="0.3"/>
     <!-- Mid diamond -->
-    <path d="M40 16L64 40L40 64L16 40Z" stroke="#1A5C5A" stroke-width="1" fill="none" opacity="0.25"/>
+    <path d="M40 16L64 40L40 64L16 40Z" stroke="#7C7C7C" stroke-width="1" fill="none" opacity="0.25"/>
     <!-- Inner diamond -->
-    <path d="M40 28L52 40L40 52L28 40Z" fill="#1A5C5A" fill-opacity="0.08"/>
+    <path d="M40 28L52 40L40 52L28 40Z" fill="#7C7C7C" fill-opacity="0.08"/>
     <!-- Cross lines -->
-    <line x1="40" y1="2" x2="40" y2="78" stroke="#1A5C5A" stroke-width="0.5" opacity="0.15"/>
-    <line x1="2" y1="40" x2="78" y2="40" stroke="#1A5C5A" stroke-width="0.5" opacity="0.15"/>
+    <line x1="40" y1="2" x2="40" y2="78" stroke="#7C7C7C" stroke-width="0.5" opacity="0.15"/>
+    <line x1="2" y1="40" x2="78" y2="40" stroke="#7C7C7C" stroke-width="0.5" opacity="0.15"/>
     <!-- Corner nodes -->
-    <circle cx="40" cy="2" r="2" fill="#1A5C5A" opacity="0.3"/>
-    <circle cx="78" cy="40" r="2" fill="#1A5C5A" opacity="0.3"/>
-    <circle cx="40" cy="78" r="2" fill="#1A5C5A" opacity="0.3"/>
-    <circle cx="2" cy="40" r="2" fill="#1A5C5A" opacity="0.3"/>
+    <circle cx="40" cy="2" r="2" fill="#7C7C7C" opacity="0.3"/>
+    <circle cx="78" cy="40" r="2" fill="#7C7C7C" opacity="0.3"/>
+    <circle cx="40" cy="78" r="2" fill="#7C7C7C" opacity="0.3"/>
+    <circle cx="2" cy="40" r="2" fill="#7C7C7C" opacity="0.3"/>
   </g>
 </svg>

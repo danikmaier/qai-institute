@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -11,6 +10,8 @@ import {
 } from "@/lib/content";
 import type { Locale } from "@/lib/config";
 import FutureDevelopmentPanel from "./FutureDevelopmentPanel";
+
+const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "placeholder";
 
 export async function generateStaticParams({
   params,
@@ -61,131 +62,92 @@ function BuildingDetail({
   building: ReturnType<typeof getBuildingBySlug> & { descriptionHtml?: string };
   locale: Locale;
 }) {
-  const t = useTranslations("buildings");
-
   if (!building) return null;
 
+  const meta: { label: string; value: string }[] = [
+    { label: "architect", value: building.architect },
+    { label: "year", value: String(building.year_built ?? "") },
+    { label: "style", value: building.architectural_style },
+    { label: "owner", value: building.current_owner },
+  ].filter((m) => m.value);
+
   return (
-    <div className="pt-20">
-      {/* Hero image */}
-      <div className="relative h-[60vh] bg-grey-900 overflow-hidden">
-        {building.photos?.[0] ? (
-          <Image
-            src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "placeholder"}/image/upload/w_1920,h_800,c_fill/${building.photos[0]}`}
-            alt={building.title}
-            fill
-            sizes="100vw"
-            priority
-            className="object-cover opacity-90"
+    <div className="container-archival py-16 md:py-20">
+      <Link
+        href="/buildings"
+        className="text-sm text-grey-500 hover:text-teal lowercase transition-colors"
+      >
+        ← back to buildings
+      </Link>
+
+      <h1 className="page-title mt-10 max-w-4xl">
+        {building.title.toLowerCase()}
+      </h1>
+
+      <div className="mt-10 pl-7 max-w-2xl">
+        {meta.map((m) => (
+          <p key={m.label} className="text-base text-black leading-[1.9]">
+            <span className="text-grey-500">{m.label}:</span> {m.value}
+          </p>
+        ))}
+        <p className="text-base text-black leading-[1.9]">
+          <span className="text-grey-500">coordinates:</span>{" "}
+          <span className="tabular-nums">
+            {building.latitude.toFixed(4)}°N, {building.longitude.toFixed(4)}°E
+          </span>{" "}
+          <a
+            href={`https://www.google.com/maps?q=${building.latitude},${building.longitude}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline"
+          >
+            view on map
+          </a>
+        </p>
+      </div>
+
+      {building.descriptionHtml && (
+        <div className="mt-16 max-w-prose">
+          <div
+            className="prose-archival"
+            dangerouslySetInnerHTML={{ __html: building.descriptionHtml }}
           />
-        ) : (
-          <div className="absolute inset-0 bg-grey-800 kazakh-motif" />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 container-editorial pb-12">
-          <span className="text-label text-teal mb-3 block">{building.year_built}</span>
-          <h1 className="font-serif text-white text-4xl md:text-6xl leading-tight">
-            {building.title}
-          </h1>
         </div>
-      </div>
+      )}
 
-      <div className="container-editorial py-16">
-        {/* Back link */}
-        <Link
-          href="/buildings"
-          className="text-xs text-grey-500 hover:text-teal transition-colors mb-12 inline-flex items-center gap-2"
-        >
-          ← {t("back_to_buildings")}
-        </Link>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mt-8">
-          {/* Main content */}
-          <div className="lg:col-span-8">
-            {building.descriptionHtml && (
-              <div
-                className="prose prose-lg max-w-none font-sans text-grey-700 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: building.descriptionHtml }}
-              />
-            )}
-
-            {/* Photo grid */}
-            {building.photos && building.photos.length > 1 && (
-              <div className="mt-12">
-                <h2 className="font-serif text-2xl mb-6">Photography</h2>
-                <div className="grid grid-cols-2 gap-3">
-                  {building.photos.slice(1).map((photo, idx) => (
-                    <div key={idx} className="relative aspect-[4/3] bg-grey-100 overflow-hidden">
-                      <Image
-                        src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "placeholder"}/image/upload/w_800,h_600,c_fill/${photo}`}
-                        alt={`${building.title} photo ${idx + 2}`}
-                        fill
-                        sizes="(max-width: 768px) 50vw, 33vw"
-                        className="object-cover hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                  ))}
+      {building.photos && building.photos.length > 0 && (
+        <div className="mt-16">
+          <span className="rule mb-8" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+            {building.photos.map((photo, idx) => (
+              <figure key={idx}>
+                <div className="relative aspect-[4/3] bg-off-white">
+                  <Image
+                    src={`https://res.cloudinary.com/${CLOUD}/image/upload/w_1200,h_900,c_fill/${photo}`}
+                    alt={`${building.title} — ${idx + 1}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
                 </div>
-              </div>
-            )}
-
-            {/* Future development */}
-            {building.notes_future_development && (
-              <div className="mt-16">
-                <FutureDevelopmentPanel
-                  notes={building.notes_future_development}
-                  locale={locale}
-                />
-              </div>
-            )}
+                <figcaption className="mt-3 text-xs text-grey-500 tabular-nums">
+                  {String(idx + 1).padStart(2, "0")} / {String(building.photos.length).padStart(2, "0")}
+                </figcaption>
+              </figure>
+            ))}
           </div>
-
-          {/* Sidebar */}
-          <aside className="lg:col-span-4">
-            <div className="sticky top-24 space-y-6">
-              <div className="border border-grey-200 p-6">
-                <h2 className="text-label text-grey-400 mb-6">Details</h2>
-                <dl className="space-y-4">
-                  <div>
-                    <dt className="text-xs text-grey-400 mb-1">{t("year_built")}</dt>
-                    <dd className="font-serif text-lg">{building.year_built}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs text-grey-400 mb-1">{t("architect")}</dt>
-                    <dd className="text-sm font-medium">{building.architect}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs text-grey-400 mb-1">{t("style")}</dt>
-                    <dd className="text-sm">{building.architectural_style}</dd>
-                  </div>
-                  {building.current_owner && (
-                    <div>
-                      <dt className="text-xs text-grey-400 mb-1">{t("owner")}</dt>
-                      <dd className="text-sm">{building.current_owner}</dd>
-                    </div>
-                  )}
-                  <div>
-                    <dt className="text-xs text-grey-400 mb-1">Coordinates</dt>
-                    <dd className="text-xs font-mono text-grey-600">
-                      {building.latitude.toFixed(4)}°N,{" "}
-                      {building.longitude.toFixed(4)}°E
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-
-              <a
-                href={`https://www.google.com/maps?q=${building.latitude},${building.longitude}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-outline w-full justify-center text-xs"
-              >
-                View on Google Maps →
-              </a>
-            </div>
-          </aside>
         </div>
-      </div>
+      )}
+
+      {building.notes_future_development && (
+        <div className="mt-20">
+          <span className="rule mb-8" />
+          <FutureDevelopmentPanel
+            notes={building.notes_future_development}
+            locale={locale}
+          />
+        </div>
+      )}
     </div>
   );
 }

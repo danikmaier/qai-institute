@@ -1,5 +1,6 @@
-export const LOGO_PATH = "/logo.svg";
-export const SITE_NAME = "QAI Institute";
+export const LOGO_PATH = "/logo.png";
+export const SITE_NAME = "QAI INSTITUTE";
+export const BRAND = "QAI INSTITUTE";
 export const SITE_DESCRIPTION = {
   en: "A digital archive of Kazakh architectural identity",
   kz: "Қазақ сәулет бірегейлігінің цифрлық мұрағаты",

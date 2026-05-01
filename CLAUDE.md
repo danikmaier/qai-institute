@@ -28,7 +28,7 @@ Trilingual (EN/KZ/RU) digital archive of Kazakh architectural identity. Next.js 
 
 ## Design System
 - **Aesthetic**: Editorial/academic architecture studio. References: Acme, AA School, i-MAD, Faulkner Browns, WW+P. Clean white backgrounds, strong typography, editorial grid layouts, full-bleed imagery, minimal ornamentation.
-- **Palette**: Monochrome (white `#FFFFFF`, off-white `#F5F5F3`, black `#1A1A1A`, greys) + deep teal accent `#1A5C5A`. Use teal sparingly — links, active states, key UI highlights, hover accents.
+- **Palette**: Monochrome (white `#FFFFFF`, off-white `#F5F5F3`, black `#1A1A1A`, greys) + grey accent `#7C7C7C`. Use the accent sparingly — links, active states, key UI highlights, hover accents. (Tailwind's `teal` color class still maps to this accent.)
 - **Typography**: Use a distinctive serif for headings (e.g., Playfair Display, DM Serif Display, or similar editorial serif available on Google Fonts — NOT generic sans-serif). Clean sans-serif for body (e.g., Libre Franklin, Source Sans 3). The logo uses a classical serif — headings should complement it.
 - **Logo**: The QAI Institute logo features geometric interlocking diamond/cross ornamental pattern inspired by traditional Kazakh motifs. The logo file is swappable — store in `public/logo.png` and reference via a config constant so it can be changed without code edits. Use the geometric pattern from the logo as a subtle decorative motif throughout the site (section dividers, background textures, footer ornament).
 - **Layout**: Generous whitespace. Asymmetric editorial grids for content sections. Full-bleed hero images. Magazine-style image placements in articles. The site should feel like a curated architectural publication, not a CMS template.
