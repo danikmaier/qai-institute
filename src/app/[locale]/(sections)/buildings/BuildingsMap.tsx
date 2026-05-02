@@ -25,12 +25,17 @@ export default function BuildingsMap({
     zoom: 4.5,
   });
 
+  const mappable = buildings.filter(
+    (b) => typeof b.latitude === "number" && typeof b.longitude === "number"
+  );
+
   const handleMarkerClick = useCallback((building: Building) => {
+    if (building.latitude === undefined || building.longitude === undefined) return;
     setSelected(building);
     setViewport((v) => ({
       ...v,
-      latitude: building.latitude,
-      longitude: building.longitude,
+      latitude: building.latitude!,
+      longitude: building.longitude!,
     }));
   }, []);
 
@@ -45,11 +50,11 @@ export default function BuildingsMap({
       >
         <NavigationControl position="top-right" />
 
-        {buildings.map((building) => (
+        {mappable.map((building) => (
           <Marker
             key={building.slug}
-            latitude={building.latitude}
-            longitude={building.longitude}
+            latitude={building.latitude!}
+            longitude={building.longitude!}
             anchor="bottom"
             onClick={() => handleMarkerClick(building)}
           >
@@ -59,7 +64,7 @@ export default function BuildingsMap({
           </Marker>
         ))}
 
-        {selected && (
+        {selected && selected.latitude !== undefined && selected.longitude !== undefined && (
           <Popup
             latitude={selected.latitude}
             longitude={selected.longitude}

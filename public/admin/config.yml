@@ -30,8 +30,13 @@ collections:
       - { label: "Title (KZ)", name: title_kz, widget: string }
       - { label: "Title (RU)", name: title_ru, widget: string }
 
-      - { label: "Latitude", name: latitude, widget: number, value_type: float, hint: "Decimal degrees, e.g. 43.2551" }
-      - { label: "Longitude", name: longitude, widget: number, value_type: float, hint: "Decimal degrees, e.g. 76.9126" }
+      - { label: "Location (EN)", name: location_en, widget: string, required: false, hint: "City, region — e.g. Almaty, Almaty Oblast" }
+      - { label: "Location (KZ)", name: location_kz, widget: string, required: false }
+      - { label: "Location (RU)", name: location_ru, widget: string, required: false }
+
+      - { label: "Latitude (map only)", name: latitude, widget: number, value_type: float, required: false, hint: "Optional. Used only for map view pin. Decimal degrees, e.g. 43.2551" }
+      - { label: "Longitude (map only)", name: longitude, widget: number, value_type: float, required: false, hint: "Optional. Used only for map view pin. Decimal degrees, e.g. 76.9126" }
+
       - { label: "Year Built", name: year_built, widget: number, value_type: int }
 
       - { label: "Architect (EN)", name: architect_en, widget: string }
@@ -145,6 +150,20 @@ collections:
       - { label: "Building Reference", name: building_ref, widget: relation, collection: buildings, search_fields: [title_en], value_field: slug, display_fields: [title_en], required: false }
       - { label: "Photographer", name: photographer, widget: string, required: false }
       - { label: "Year Taken", name: year_taken, widget: number, value_type: int, required: false }
+
+      - { label: "Type", name: type, widget: string, required: false, hint: "Free text — e.g. interior, exterior, detail, ornament, landscape, streetscape" }
+
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+        field: { label: Tag, name: tag, widget: string }
+        hint: "Free text tags, used for search"
+
+      - { label: "Architectural Style (EN)", name: architectural_style_en, widget: string, required: false }
+      - { label: "Architectural Style (KZ)", name: architectural_style_kz, widget: string, required: false }
+      - { label: "Architectural Style (RU)", name: architectural_style_ru, widget: string, required: false }
+
       - { label: "Date Added", name: date_added, widget: datetime }
 
   # ──────────────────────────────────────────────────────────

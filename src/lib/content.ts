@@ -24,8 +24,9 @@ export async function markdownToHtml(markdown: string): Promise<string> {
 export interface Building {
   slug: string;
   title: string;
-  latitude: number;
-  longitude: number;
+  location: string;
+  latitude?: number;
+  longitude?: number;
   year_built: number;
   architect: string;
   architectural_style: string;
@@ -54,6 +55,7 @@ export function getAllBuildings(locale: Locale = "en"): Building[] {
     return {
       slug,
       title: getLocalizedField(data, "title", locale),
+      location: getLocalizedField(data, "location", locale),
       latitude: data.latitude,
       longitude: data.longitude,
       year_built: data.year_built,
@@ -110,6 +112,7 @@ export function getBuildingBySlug(
       return {
         slug,
         title: getLocalizedField(data, "title", locale),
+        location: getLocalizedField(data, "location", locale),
         latitude: data.latitude,
         longitude: data.longitude,
         year_built: data.year_built,
@@ -195,6 +198,9 @@ export interface GalleryEntry {
   building_ref?: string;
   photographer?: string;
   year_taken?: number;
+  type?: string;
+  tags?: string[];
+  architectural_style?: string;
   date_added: string;
 }
 
@@ -213,6 +219,9 @@ export function getAllGallery(locale: Locale = "en"): GalleryEntry[] {
       building_ref: data.building_ref,
       photographer: data.photographer,
       year_taken: data.year_taken,
+      type: data.type,
+      tags: (data.tags || []) as string[],
+      architectural_style: getLocalizedField(data, "architectural_style", locale) || undefined,
       date_added: data.date_added || new Date().toISOString(),
     };
   });

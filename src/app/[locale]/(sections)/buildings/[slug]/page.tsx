@@ -65,8 +65,9 @@ function BuildingDetail({
   if (!building) return null;
 
   const meta: { label: string; value: string }[] = [
-    { label: "architect", value: building.architect },
+    { label: "location", value: building.location },
     { label: "year", value: String(building.year_built ?? "") },
+    { label: "architect", value: building.architect },
     { label: "style", value: building.architectural_style },
     { label: "owner", value: building.current_owner },
   ].filter((m) => m.value);
@@ -90,20 +91,6 @@ function BuildingDetail({
             <span className="text-grey-500">{m.label}:</span> {m.value}
           </p>
         ))}
-        <p className="text-sm sm:text-base text-black leading-[1.9] break-words">
-          <span className="text-grey-500">coordinates:</span>{" "}
-          <span className="tabular-nums">
-            {building.latitude.toFixed(4)}°N, {building.longitude.toFixed(4)}°E
-          </span>{" "}
-          <a
-            href={`https://www.google.com/maps?q=${building.latitude},${building.longitude}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-underline"
-          >
-            view on map
-          </a>
-        </p>
       </div>
 
       {building.descriptionHtml && (
